@@ -5,7 +5,7 @@
 ![H2 Database](https://img.shields.io/badge/H2-Database-blue?style=for-the-badge)
 ![Status](https://img.shields.io/badge/Status-Conclu%C3%ADdo-success?style=for-the-badge)
 
-Projeto desenvolvido com o objetivo de praticar conceitos fundamentais do ecossistema **Spring Boot**, manipulação de dados em memória e estrutura de APIs REST.
+Projeto desenvolvido por Fernando Moura com o objetivo de praticar conceitos fundamentais do ecossistema **Spring Boot**, manipulação de dados em memória e estrutura de APIs REST.
 
 ---
 
