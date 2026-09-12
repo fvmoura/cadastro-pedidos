@@ -19,7 +19,6 @@ public class ClienteService {
     }
 
     public Cliente buscarClientePorEmail(String email){
-
         return repository.findByEmail(email).orElseThrow(
                 () -> new RuntimeException("E-mail não encontrado!")
         );
