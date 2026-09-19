@@ -1,8 +1,13 @@
 package com.coxinhaexpress.cadastro_pedidos.business;
 
 import com.coxinhaexpress.cadastro_pedidos.infrasctructure.entitys.Cliente;
+import com.coxinhaexpress.cadastro_pedidos.infrasctructure.entitys.Enums;
 import com.coxinhaexpress.cadastro_pedidos.infrasctructure.repository.ClienteRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @Service
 
@@ -18,15 +23,19 @@ public class ClienteService {
         repository.saveAndFlush(cliente);
     }
 
-    public Cliente buscarClientePorEmail(String email){
-        return repository.findByEmail(email).orElseThrow(
-                () -> new RuntimeException("E-mail não encontrado!")
+    public List<Cliente> buscarClientes() {
+        return repository.findAll();
+    }
+
+    public Cliente buscarClientePorId(Long id){
+        return repository.findById(id).orElseThrow(
+                () -> new RuntimeException("Cliente não encontrado!")
         );
 
     }
 
-    public void deletarClientePorEmail(String email){
-        repository.deleteByEmail(email);
+    public void deletarClientePorId(Long id){
+        repository.deleteById(id);
     }
 
     public void atualizarClientePorId(Integer id, Cliente cliente){
@@ -39,6 +48,17 @@ public class ClienteService {
                 .build();
 
                 repository.saveAndFlush(clienteAtualizado);
+    }
+
+    public Cliente inativarClientePorId(Long id ){
+
+        Cliente clienteEntity = repository.findById(id).orElseThrow(() -> new RuntimeException("Cliente não encontrado!"));
+
+                clienteEntity.setStatusCadastro(Enums.StatusCadastro.INATIVO);
+
+                repository.save(clienteEntity);
+
+                return clienteEntity;
     }
 
 }

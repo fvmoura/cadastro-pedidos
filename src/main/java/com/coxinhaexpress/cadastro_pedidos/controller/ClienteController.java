@@ -2,10 +2,13 @@ package com.coxinhaexpress.cadastro_pedidos.controller;
 
 import com.coxinhaexpress.cadastro_pedidos.business.ClienteService;
 import com.coxinhaexpress.cadastro_pedidos.infrasctructure.entitys.Cliente;
+import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/cliente")
@@ -24,14 +27,29 @@ public class ClienteController {
     }
 
     @GetMapping
-    public ResponseEntity<Cliente> buscarClientePorEmail(@RequestParam String email) {
-        clienteService.buscarClientePorEmail(email);
-        return ResponseEntity.ok(clienteService.buscarClientePorEmail(email));
+    public ResponseEntity<List<Cliente>> buscarClientes(){
+        return ResponseEntity
+                .ok(clienteService.buscarClientes());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Cliente> buscarClientePorId(@RequestParam Long id) {
+        clienteService.buscarClientePorId(id);
+        return ResponseEntity.ok(clienteService.buscarClientePorId(id));
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<Cliente> inativarClientePorId(@PathVariable Long id) {
+
+        Cliente clienteInativado = clienteService.inativarClientePorId(id);
+
+        return ResponseEntity
+                .ok(clienteInativado);
     }
 
     @DeleteMapping
-    public ResponseEntity<Void> deletarClientePorEmail(@RequestParam String email) {
-        clienteService.deletarClientePorEmail(email);
+    public ResponseEntity<Void> deletarClientePorId(@RequestParam Long id) {
+        clienteService.deletarClientePorId(id);
         return ResponseEntity
                 .ok()
                 .build();
